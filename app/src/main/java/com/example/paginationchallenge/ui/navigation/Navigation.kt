@@ -1,4 +1,4 @@
-package com.example.paginationchallenge.navigation
+package com.example.paginationchallenge.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost

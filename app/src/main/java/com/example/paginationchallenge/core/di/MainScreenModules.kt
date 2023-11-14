@@ -1,15 +1,15 @@
-package com.example.paginationchallenge.di
+package com.example.paginationchallenge.core.di
 
-import com.example.paginationchallenge.data.remote.MarvelApiClient
-import com.example.paginationchallenge.data.MarvelCharactersRepositoryImpl
+import com.example.paginationchallenge.domain.repository.MarvelApiClient
+import com.example.paginationchallenge.data.repository.MarvelCharactersRepositoryImpl
 import com.example.paginationchallenge.domain.GetMarvelCharacters
-import com.example.paginationchallenge.domain.MarvelCharactersRepository
-import com.example.paginationchallenge.ui.mainscreen.MainScreenViewModel
+import com.example.paginationchallenge.domain.repository.MarvelCharactersRepository
+import com.example.paginationchallenge.ui.mainscreen.MainScreenPresenter
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 private val homeAppModules = module {
-    viewModel { MainScreenViewModel(getCharacters = get()) }
+    viewModel { MainScreenPresenter(getCharacters = get(), repository = get()) }
 }
 
 private val homeDomainModules = module {

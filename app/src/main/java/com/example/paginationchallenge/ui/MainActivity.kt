@@ -1,9 +1,10 @@
-package com.example.paginationchallenge
+package com.example.paginationchallenge.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.example.paginationchallenge.navigation.Navigation
+import com.example.paginationchallenge.MainApplication
+import com.example.paginationchallenge.ui.navigation.Navigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

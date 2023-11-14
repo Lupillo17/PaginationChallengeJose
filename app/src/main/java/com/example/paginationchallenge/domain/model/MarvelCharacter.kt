@@ -1,4 +1,4 @@
-package com.example.paginationchallenge.domain
+package com.example.paginationchallenge.domain.model
 
 data class MarvelCharacter (
     val id: Int,

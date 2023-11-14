@@ -4,12 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiResponse(
-    val code: Int,
-    val status: String,
-    val copyright: String,
-    val attributionText: String,
-    val attributionHTML: String,
-    val etag: String,
+    val code: Int = 0,
+    val status: String = "",
+    val copyright: String = "",
+    val attributionText: String = "",
+    val attributionHTML: String = "",
+    val etag: String = "",
     val data: Data
 )
 

@@ -25,30 +25,41 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
+import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
-import com.example.paginationchallenge.domain.MarvelCharacter
+import com.example.paginationchallenge.core.utils.ListPagingSource
+import com.example.paginationchallenge.domain.model.MarvelCharacter
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainScreen(onClick: (MarvelCharacter) -> Unit) {
-    val viewModel: MainScreenViewModel = getViewModel()
+    val viewModel: MainScreenPresenter = getViewModel()
+    val context = LocalContext.current
+
+    LaunchedEffect(true ){
+        viewModel.loadData(context)
+    }
+
     MainScreenComposable(viewModel.characters, onClick)
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun MainScreenComposable(
-    data: Flow<PagingData<MarvelCharacter>>,
+    characters: Flow<PagingData<MarvelCharacter>>,
     onClick: (MarvelCharacter) -> Unit
 ) {
     Scaffold(
@@ -58,7 +69,7 @@ fun MainScreenComposable(
             )
         }
     ) { padding ->
-        val characters: LazyPagingItems<MarvelCharacter> = data.collectAsLazyPagingItems()
+        val characters: LazyPagingItems<MarvelCharacter> = characters.collectAsLazyPagingItems()
         val swipeRefreshState =
             rememberPullRefreshState(
                 refreshing = characters.loadState.refresh == LoadState.Loading,

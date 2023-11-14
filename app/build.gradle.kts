@@ -83,6 +83,8 @@ dependencies {
 
     //Added - Pagination
     implementation("androidx.paging:paging-compose:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.1.0")
+    implementation("androidx.paging:paging-rxjava2-ktx:3.1.0")
 
     //Added - Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
@@ -111,4 +113,10 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    //Volley
+    implementation("com.android.volley:volley:1.2.1")
+
+    //Gson
+    implementation("com.google.code.gson:gson:2.10.1")
 }

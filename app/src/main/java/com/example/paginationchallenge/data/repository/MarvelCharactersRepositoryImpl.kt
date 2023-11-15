@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.paginationchallenge.data.MarvelCharactersDataSources
 import com.example.paginationchallenge.data.remote.ApiResponse
+import com.example.paginationchallenge.data.remote.Character
 import com.example.paginationchallenge.domain.repository.MarvelApiClient
 import com.example.paginationchallenge.domain.model.MarvelCharacter
 import com.example.paginationchallenge.domain.repository.MarvelCharactersRepository
@@ -20,5 +21,9 @@ class MarvelCharactersRepositoryImpl(private val apiClient: MarvelApiClient) :
     override fun getCharacters(): Flow<PagingData<MarvelCharacter>> = characters
     override suspend fun getCharacters2(): ApiResponse? {
         return apiClient.getCharacters2(1,10)
+    }
+
+    override suspend fun findCharacter(): ApiResponse? {
+        return apiClient.findCharacter(1011334)
     }
 }

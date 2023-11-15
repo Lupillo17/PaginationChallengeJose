@@ -30,38 +30,43 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
-import androidx.paging.Pager
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
-import com.example.paginationchallenge.core.utils.ListPagingSource
 import com.example.paginationchallenge.domain.model.MarvelCharacter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.get
+import org.koin.compose.koinInject
 
 @Composable
-fun MainScreen(onClick: (MarvelCharacter) -> Unit) {
-    val viewModel: MainScreenPresenter = getViewModel()
-    val context = LocalContext.current
+fun CharactersScreen(
+    onClick: (Int) -> Unit
+) {
+//    val presenter = CharacterListPresenter(
+//        repository = get(),
+//        view = get()
+//    )
+    val presenter: CharacterListContract.Presenter = koinInject()
 
-    LaunchedEffect(true ){
-        viewModel.loadData(context)
+    LaunchedEffect(true) {
+//        presenter.onViewCreated()
     }
 
-    MainScreenComposable(viewModel.characters, onClick)
+
+    CharactersScreenComposable(flowOf(PagingData.empty()), onClick)
 }
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun MainScreenComposable(
+fun CharactersScreenComposable(
     characters: Flow<PagingData<MarvelCharacter>>,
-    onClick: (MarvelCharacter) -> Unit
+    onClick: (Int) -> Unit
 ) {
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -91,7 +96,7 @@ fun MainScreenComposable(
 private fun GridOfCharacters(
     characters: LazyPagingItems<MarvelCharacter>,
     padding: PaddingValues,
-    onClick: (MarvelCharacter) -> Unit
+    onClick: (Int) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
@@ -102,7 +107,7 @@ private fun GridOfCharacters(
             val character = characters[index] ?: return@items
             CharacterItem(
                 character = character,
-                modifier = Modifier.clickable { onClick(character) }
+                modifier = Modifier.clickable { onClick(character.id) }
             )
         }
 
